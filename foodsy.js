@@ -24,6 +24,12 @@ app.get('/demo',function(req,res){
 app.get('/admin',function(req,res){
   res.render('admin',{user:user});
 });
+app.get('/animal/:animal_name',function(req,res){
+  animal_name= req.params.animal_name;
+  console.log(animal_name);
+  res.render('animal',{user:user});
+});
+
 
 const port = process.env['PORT'] != null ? process.env['PORT'] : 80
 

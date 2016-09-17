@@ -1,0 +1,38 @@
+<%- include('partials/header')%>
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <div class="col-lg-12 text-center">
+        <br><br>
+        <h1>Animal</h1>
+        <h3><%=animal_name %></h3>
+        <h4>Recomendation for <%=animal_name%></h4>
+          <div class="col-lg-6 text-center">
+            <h5>Edad</h5>
+               Choose the Age in Months
+                <br>
+                </div>
+          <div class="col-lg-6 text-center">
+                <input type="range" name="Age_slider" value="6" min="0" max="84" onchange="updateAgeLabel(this.value)">
+                Age on: <span id="Age_Value_label">6</span>Months
+          </div>
+        </div>
+      <div class="col-lg-12 text-center">
+          <div class="col-lg-6 text-center">
+            <h5>Peso</h5>
+             Choose the Peso in Kilograms
+              <br>
+            </div>
+            <div class="col-lg-6 text-center">
+              <input type="range" name="Peso_slider" value="6" min="0" max="250" onchange="updatePesoLabel(this.value)">
+              Peso on: <span id="Peso_Value_label">6</span>Kilograms
+              <br>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="js/animal.js" charset="utf-8"></script>
+</section>
+<%- include('partials/footer')%>
