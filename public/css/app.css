@@ -1,0 +1,12 @@
+.animal-frame{
+  display: inline-block;;
+  margin-top: 20px;
+  border: 1px solid black;
+  height: 350px;
+
+}
+.img-selectanimal{
+  display: inline-block;
+  width: 50%;
+  margin-top:20px;
+}
