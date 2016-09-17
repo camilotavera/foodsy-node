@@ -1,0 +1,8 @@
+{
+  "name": "Foodsy",
+  "description": "Foodsy node.js app",
+  "dependencies": {
+    "ejs": "^2.5.1",
+    "express": "^4.14.0"
+  }
+}

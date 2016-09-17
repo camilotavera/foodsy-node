@@ -1,0 +1,99 @@
+<%- include('partials/header')%>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <img class="img-responsive" src="img/profile.png" alt="">
+                    <div class="intro-text">
+                        <span class="name">Start Foodsy</span>
+                        <hr class="star-light">
+                        <span class="skills">Web Developer - Graphic Artist - User Experience Designer</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Portfolio Grid Section -->
+    <section id="portfolio">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-sm-4 portfolio-item">
+                    <a href="#portfolioModal4" class="portfolio-link" data-toggle="modal">
+                        <div class="caption">
+                            <div class="caption-content">
+                                <i class="fa fa-search-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="img/portfolio/game.png" class="img-responsive" alt="">
+                    </a>
+                    <h4 style="text-align: center;">Automatic</h4>
+                </div>
+                <div class="col-sm-4 portfolio-item">
+                    <a href="#portfolioModal5" class="portfolio-link" data-toggle="modal">
+                        <div class="caption">
+                            <div class="caption-content">
+                                <i class="fa fa-search-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="img/portfolio/safe.png" class="img-responsive" alt="">
+                    </a>
+                    <h4 style="text-align: center;">Monitor</h4>
+                </div>
+                <div class="col-sm-4 portfolio-item">
+                    <a href="#portfolioModal6" class="portfolio-link" data-toggle="modal">
+                        <div class="caption">
+                            <div class="caption-content">
+                                <i class="fa fa-search-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="img/portfolio/submarine.png" class="img-responsive" alt="">
+                    </a>
+                    <h4 style="text-align: center;">smart</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id ="demo">
+      <div class="container">
+
+
+
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2>Demo</h2>
+            <hr class="star-primary">
+
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            Choose the Time for the servo
+            <br>
+            <input type="range" name="time_slider" value="2000" min="1000" max="10000" onchange="updateTimeLabel(this.value)">
+            Time on: <span id="time_Value_label">2000</span>ms
+            <br>
+            Choose the SPEED for the servo
+            <br>
+            <input type="range" name="speed_slider" value="20" min="0" max="100" onchange="updateSpeedLabel(this.value)">
+            Time on: <span id="speed_Value_label">20</span>cm/s
+            <button type="button" name="button" class="btn btn-lg" onclick="click_button()">Click me!</button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+  </body>
+
+<script src="js/app.js" charset="utf-8"></script>
+
+
+
+  </script>
+
+  </script>
+</html>
