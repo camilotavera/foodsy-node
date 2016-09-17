@@ -18,6 +18,12 @@ app.get('/profile',function (req,res){
 app.get('/test',function(req,res){
   res.render('test',{user:user});
 })
+
+app.get('/selectanimal',function(req,res){
+  res.render('selectanimal',{user:user});
+});
+
+
 app.get('/demo',function(req,res){
   res.render('demo',{user:user});
 });
