@@ -25,4 +25,6 @@ app.get('/admin',function(req,res){
   res.render('admin',{user:user});
 });
 
-app.listen(80);
+const port = process.env['PORT'] != null ? process.env['PORT'] : 80
+
+app.listen(port);
