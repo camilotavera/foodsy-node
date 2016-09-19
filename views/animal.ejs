@@ -2,37 +2,86 @@
 <section>
   <div class="container">
     <div class="row">
-      <div class="col-lg-12 text-center">
-        <div class="col-lg-12 text-center">
+      <div class="col-lg-12 text-left">
         <br><br>
-        <h1>Animal</h1>
-        <h3><%=animal_name %></h3>
+        <h1>Animal <%=animal_name %></h1>
+        <br>
         <h4>Recomendation for <%=animal_name%></h4>
+        <br>
+        <h4 class="col-lg-6 text-left">Segun: </h4>
+        <div class="col-lg-12">
           <div class="col-lg-6 text-center">
+            <br>
             <h5>Edad</h5>
                Choose the Age in Months
-                <br>
                 </div>
-          <div class="col-lg-6 text-center">
+                <br>
+          <div class="col-lg-6 text-left">
                 <input type="range" name="Age_slider" value="6" min="0" max="84" onchange="updateAgeLabel(this.value)">
-                Age on: <span id="Age_Value_label">6</span>Months
+                Age on: <span id="Age_Value_label">6</span> Months
           </div>
-        </div>
-      <div class="col-lg-12 text-center">
+          </div>
+      <div class="col-lg-12 text-left">
           <div class="col-lg-6 text-center">
             <h5>Peso</h5>
              Choose the Peso in Kilograms
               <br>
             </div>
-            <div class="col-lg-6 text-center">
+            <div class="col-lg-6 text-left">
               <input type="range" name="Peso_slider" value="6" min="0" max="250" onchange="updatePesoLabel(this.value)">
               Peso on: <span id="Peso_Value_label">6</span>Kilograms
               <br>
             </div>
         </div>
       </div>
+      <div class="col-lg-12 text-left">
+          <div class="col-lg-6 text-left">
+            <br><br>
+            <h4>The Recomendation is: </h4>
+            <br>
+          </div>
+          <div class="col-lg-12 text-left">
+              <div class="col-lg-6 text-center">
+                <h5>Cantidad de Porciones por dia</h5>
+                  <br>
+                </div>
+                <div class="col-lg-6 text-left">
+                  <input type="range" name="Porciones_slider" value="3" min="1" max="6" onchange="updatePorcionesLabel(this.value)">
+                  Amount of:  <span id="Porciones_Value_label">6</span> Servings Per day
+                  <br>
+                </div>
+            </div>
+            <div class="col-lg-12 text-left">
+                <div class="col-lg-6 text-center">
+                  <h5>Cantidad de Gramos por Porcion</h5>
+                    <br>
+                  </div>
+                  <div class="col-lg-6 text-left">
+                    <input type="range" name="Grams_slider" value="200" min="50" max="1500" onchange="updateGramsLabel(this.value)">
+                    Amount of:  <span id="Grams_Value_label">200</span> Grams Per Serving
+                    <br>
+                  </div>
+              </div>
+              <div class="col-lg-12 text-center">
+                <div class="col-lg-6 text-left">
+                  <h5 class="text-center">Hora de inicio: </h5>
+                </div>
+                <div class="col-lg-6 text-left">
+                  <input type="time" name="hora" value="05:00:00" step="1">
+              </div>
+            </div>
+            <div class="col-lg-12 text-center">
+              <div class="col-lg-6 text-left">
+                <h5 class="text-center">Hora de Finalizar: </h5>
+              </div>
+              <div class="col-lg-6 text-left">
+                <input type="time" name="horaFin" value="20:00:00" step="1">
+            </div>
+          </div>
+          </div>
+      </div>
     </div>
   </div>
-  <script src="js/animal.js" charset="utf-8"></script>
 </section>
+<script src="/js/animal.js"></script>
 <%- include('partials/footer')%>
