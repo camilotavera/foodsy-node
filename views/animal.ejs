@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-lg-12 text-left">
         <br><br>
-        <h1>Animal <%=animal_name %></h1>
+        <h1>Animal= <%=animal_name %></h1>
         <br>
         <h4>Recomendation for <%=animal_name%></h4>
         <br>
@@ -46,8 +46,8 @@
                   <br>
                 </div>
                 <div class="col-lg-6 text-left">
-                  <input type="range" name="Porciones_slider" value="3" min="1" max="6" onchange="updatePorcionesLabel(this.value)">
-                  Amount of:  <span id="Porciones_Value_label">6</span> Servings Per day
+                  <input type="range" name="Porciones_slider" value="<%= animal_data.times_a_day %>" min="1" max="6" onchange="updatePorcionesLabel(this.value)">
+                  Amount of:  <span id="Porciones_Value_label"><%= animal_data.times_a_day %></span> Servings Per day
                   <br>
                 </div>
             </div>
@@ -57,8 +57,8 @@
                     <br>
                   </div>
                   <div class="col-lg-6 text-left">
-                    <input type="range" name="Grams_slider" value="200" min="50" max="1500" onchange="updateGramsLabel(this.value)">
-                    Amount of:  <span id="Grams_Value_label">200</span> Grams Per Serving
+                    <input type="range" name="Grams_slider" value="<%= animal_data.food_ration %>" min="50" max="1500" onchange="updateGramsLabel(this.value)">
+                    Amount of:  <span id="Grams_Value_label"><%= animal_data.food_ration %></span> Grams Per Serving
                     <br>
                   </div>
               </div>
