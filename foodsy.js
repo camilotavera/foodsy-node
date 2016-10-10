@@ -2,7 +2,7 @@ var express = require("express");
 var r= require('rethinkdb');
 var app = express();
 var user = "elEmo";
-
+var conn = null;
 
 app.set('view engine','ejs');
 app.set("views","views");
@@ -16,7 +16,7 @@ var rethinkDB_config={
 r.connect(rethinkDB_config, function(err, connection){
   if(err) console.log(err);
   if(connection) {
-
+    conn = connection;
     console.log('connected to rethinkDB');
       r.dbCreate('foodsy').run(connection, function(err, res){
       r.db ('foodsy').tableCreate('animals').run(connection, function(err,res){
@@ -96,15 +96,27 @@ app.get('/animal/:animal_name',function(req,res){
     r.db('foodsy').table('animals').filter(r.row('animal_name').eq(animal_name)).run(connection,function(err,cursor){
 
       cursor.toArray(function(err,result){
-        var animal_data=result[0];
-        console.log("Animal Name:" +animal_data.animal_name);
-        console.log("food_ration:" +animal_data.food_ration);
-        console.log("times_a_day:" +animal_data.times_a_day);
 
-        res.render('animal',{user:user, animal_data: animal_data});
+        var animal_data=result[0];
+        if(animal_data){
+          console.log("Animal Name:" +animal_data.animal_name);
+          console.log("food_ration:" +animal_data.food_ration);
+          console.log("times_a_day:" +animal_data.times_a_day);
+          res.render('animal',{user:user, animal_data: animal_data});
+        }
+        else res.redirect('/selectanimal');
+
       });
     });
   });
+});
+app.get('/animal/save/:animal_name/:times_a_day/:food_ration',function(req,res){  
+  animal_name= req.params.animal_name;
+  var times_a_day = parseInt(req.params.times_a_day);
+  var food_ration = parseInt(req.params.food_ration);
+    r.db('foodsy').table('animals').getAll(animal_name, {index:'animal_name'}).update({food_ration: food_ration, times_a_day: times_a_day}).run(conn,function(err,result){
+      console.log(result);
+    });
 });
 
 const port = process.env['PORT'] != null ? process.env['PORT'] : 80
