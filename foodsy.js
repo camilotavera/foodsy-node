@@ -110,12 +110,17 @@ app.get('/animal/:animal_name',function(req,res){
     });
   });
 });
-app.get('/animal/save/:animal_name/:times_a_day/:food_ration',function(req,res){  
+app.get('/animal/save/:animal_name/:times_a_day/:food_ration',function(req,res){
   animal_name= req.params.animal_name;
   var times_a_day = parseInt(req.params.times_a_day);
   var food_ration = parseInt(req.params.food_ration);
     r.db('foodsy').table('animals').getAll(animal_name, {index:'animal_name'}).update({food_ration: food_ration, times_a_day: times_a_day}).run(conn,function(err,result){
       console.log(result);
+      if (result.replaced > 0) {
+        res.send(200);
+      } else {
+        res.send(404);
+      }
     });
 });
 
