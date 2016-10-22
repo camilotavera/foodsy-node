@@ -20,6 +20,9 @@ r.connect(rethinkDB_config, function(err, connection){
     console.log('connected to rethinkDB');
       r.dbCreate('foodsy').run(connection, function(err, res){
       r.db ('foodsy').tableCreate('animals').run(connection, function(err,res){
+        r.db ('foodsy').table('animals').indexCreate('animal_name').run(connection, function(err,res){
+          
+        });
         var data_animals=[
         {
           animal_name:'horse',
