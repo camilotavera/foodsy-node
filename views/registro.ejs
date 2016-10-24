@@ -1,0 +1,29 @@
+<%- include('partials/header')%>
+<section>
+  <div class="container">
+    <div class="row">
+      <h1>Registro</h1>
+      <form name="user">
+        <div class="form-group">
+          <label for="email">Correo:</label>
+          <input type="email" class="form-control" id="email" onchange="updateEmail(this.value)">
+          <span class="text-danger" id="emailMessage"></span>
+        </div>
+        <div class="form-group">
+          <label for="pwd">Contraseña:</label>
+          <input type="password" class="form-control" id="pwd" onchange="updatePass(this.value)">
+          <span class="text-danger" id="passMessage"></span>
+        </div>
+        <div class="form-group">
+          <label for="pwd2">Confirmar contraseña:</label>
+          <input type="password" class="form-control" id="pwd2"  onchange="equalPass(this.value)">
+          <span class="text-danger" id="pass2Message"></span>
+        </div>
+
+      </form>
+      <button class="btn btn-default" onclick="saveUser()">Registrarse</button>
+    </div>
+  </div>
+</section>
+<script src="/js/registro.js"></script>
+<%- include('partials/footer')%>

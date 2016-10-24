@@ -1,28 +1,58 @@
-var Age_on = 6;
-var Peso_on = 600;
-var Porciones_on = 3;
-var Grams_on = 200;
+var age_on = 6;
+var weigth_on = 6;
+var times_a_day_on = 3;
+var food_ration_on = 200;
 var board_IP = "0.0.0.0";
+var startHour = 5;
+var startMinutes = 0;
+var endHour = 20;
+var endMinutes = 0;
+var resultWeigthAge = 18;
+var start_hour = "5:00";
+var end_hour = "20:00";
 
-function updateAgeLabel(Age) {
-  console.log(Age);
-  document.getElementById("Age_Value_label").innerHTML = Age;
-  Age_on = Age;
+function updateAgeLabel(age) {
+  console.log(age);
+  document.getElementById("age_value_label").innerHTML = age;
+  age_on = age;
+  resultWeigthAge = (age_on * weigth_on) / 2;
+  document.getElementsByName("food_ration_slider")[0].value = resultWeigthAge;
+  document.getElementById('food_ration_value_label').innerHTML = resultWeigthAge;
+  console.log(resultWeigthAge);
 }
-function updatePesoLabel(Peso) {
-  console.log(Peso);
-  document.getElementById("Peso_Value_label").innerHTML = Peso;
-  Peso_on = Peso;
+function updateWeigthLabel(weight) {
+  console.log(weight);
+  document.getElementById("weigth_value_label").innerHTML = weight;
+  weigth_on = weight;
+  resultWeigthAge = (age_on * weigth_on) / 2;
+  document.getElementsByName("food_ration_slider")[0].value = resultWeigthAge;
+  document.getElementById('food_ration_value_label').innerHTML = resultWeigthAge;
+  console.log(resultWeigthAge);
 }
-function updatePorcionesLabel(Porciones) {
-  console.log(Porciones);
-  document.getElementById("Porciones_Value_label").innerHTML = Porciones;
-  Porciones_on = Porciones;
+function updateTimesADayLabel(timesADay) {
+  console.log(timesADay);
+  document.getElementById("times_a_day_value_label").innerHTML = timesADay;
+  times_a_day_on = timesADay;
 }
-function updateGramsLabel(Grams) {
-  console.log(Grams);
-  document.getElementById("Grams_Value_label").innerHTML = Grams;
-  Grams_on = Grams;
+function updateFoodRationLabel(grams) {
+  console.log(grams);
+  document.getElementById("food_ration_value_label").innerHTML = grams;
+  food_ration_on = grams;
+}
+
+
+function updateStartHour(start){
+  start_hour = start;
+  var time = start.split(':');
+  startHour = time[0];
+  startMinutes = time[1];
+}
+
+function updateEndHour(end){
+  end_hour = end;
+  var time = end.split(':');
+  endHour = time[0];
+  endMinutes = time[1];
 }
 
 function httpGet(theUrl)
@@ -35,10 +65,10 @@ function httpGet(theUrl)
 
 function saveAnimalSettings(animalName){
   var animal_name = animalName;
-  var food_ration = Grams_on;
-  var times_a_day = Porciones_on;
-  var request = '/animal/save/'+animal_name+'/'+times_a_day+'/'+food_ration;
-  alert("Saving settings for " + animal_name + ": Servings Per day: " +  times_a_day + ", Food Weight: " + food_ration + " (grams).");
+  var food_ration = food_ration_on;
+  var times_a_day = times_a_day_on;
+  var request = '/animal/save/'+animal_name+'/'+times_a_day+'/'+food_ration+'/'+start_hour+'/'+end_hour;
+  alert("Guardar ajustes para " + animal_name + ": Porciones por día: " +  times_a_day + ", Peso comida: " + food_ration + " (gramos).");
   httpGet(request);
 }
 
@@ -48,15 +78,18 @@ function updateIP(ip) {
 }
 
 function updateBoard() {
-  var food_ration = parseInt(Grams_on);
+  var food_ration = parseInt(food_ration_on);
   var time_on = food_ration / 100;
   if (time_on < 0) {
     time_on = 1;
   }
-  var times_a_day = parseInt(Porciones_on);
+  var times_a_day = parseInt(times_a_day_on);
   var seconds_in_day = 43200;
   var time_off = seconds_in_day / times_a_day;
   var request = 'http://'+ board_IP + '/pulse/d2?on=' + parseInt(time_on) + '&off=' + time_off;
-  alert(request);
+  var timeToSet = 'http://'+ board_IP + '/time/config/work?hstart='+ startHour + '&mstart=' + startMinutes + '&hend=' + endHour + '&mend=' + endMinutes;
+
+  alert(timeToSet + request);
+  httpGet(timeToSet);
   httpGet(request);
 }

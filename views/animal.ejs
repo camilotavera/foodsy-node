@@ -3,92 +3,91 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-left">
-        <br><br>
+        <br><br><br>
+        <h1><%=animal_name %></h1>
+        <h4>Recomendación para <%=animal_name%></h4>
         <br>
-        <h1>Animal= <%=animal_name %></h1>
-        <h4>Recomendation for <%=animal_name%></h4>
-        <br>
-        <h4 class="col-lg-6 text-left">Segun: </h4>
+        <h4 class="col-lg-6 text-left">Según: </h4>
         <div class="col-lg-12">
           <div class="col-lg-6 text-center">
             <br>
             <h5>Edad</h5>
-               Choose the Age in Months
-                </div>
-                <br>
+            Elige la edad en meses
+          </div>
+          <br>
           <div class="col-lg-6 text-left">
-                <input type="range" name="Age_slider" value="6" min="0" max="84" onchange="updateAgeLabel(this.value)">
-                Age on: <span id="Age_Value_label">6</span> Months
+            <input type="range" name="age_slider" value="6" min="0" max="84" onchange="updateAgeLabel(this.value)">
+            Edad: <span id="age_value_label">6</span> Meses
           </div>
-          </div>
-      <div class="col-lg-12 text-left">
-          <div class="col-lg-6 text-center">
-            <h5>Peso</h5>
-             Choose the Peso in Kilograms
-              <br>
-            </div>
-            <div class="col-lg-6 text-left">
-              <input type="range" name="Peso_slider" value="6" min="0" max="250" onchange="updatePesoLabel(this.value)">
-              Peso on: <span id="Peso_Value_label">6</span>Kilograms
-              <br>
-            </div>
         </div>
       </div>
       <div class="col-lg-12 text-left">
-          <div class="col-lg-6 text-left">
-            <br><br>
-            <h4>The Recomendation is: </h4>
+        <div class="col-lg-6 text-center">
+          <h5>Peso</h5>
+          Elige el peso en kilogramos
+          <br>
+        </div>
+        <div class="col-lg-6 text-left">
+          <input type="range" name="weigth_slider" value="6" min="0" max="250" onchange="updateWeigthLabel(this.value)">
+          Peso: <span id="weigth_value_label">6</span> kilogramos
+          <br>
+        </div>
+      </div>
+      <div class="col-lg-12 text-left">
+        <div class="col-lg-6 text-left">
+          <br><br>
+          <h4>La recomendación es: </h4>
+          <br>
+        </div>
+        <div class="col-lg-12 text-left">
+          <div class="col-lg-6 text-center">
+            <h5>Cantidad de Porciones por día</h5>
             <br>
           </div>
-          <div class="col-lg-12 text-left">
-              <div class="col-lg-6 text-center">
-                <h5>Cantidad de Porciones por dia</h5>
-                  <br>
-                </div>
-                <div class="col-lg-6 text-left">
-                  <input type="range" name="Porciones_slider" value="<%= animal_data.times_a_day %>" min="1" max="6" onchange="updatePorcionesLabel(this.value)">
-                  Amount of:  <span id="Porciones_Value_label"><%= animal_data.times_a_day %></span> Servings Per day
-                  <br>
-                </div>
-            </div>
-            <div class="col-lg-12 text-left">
-                <div class="col-lg-6 text-center">
-                  <h5>Cantidad de Gramos por Porcion</h5>
-                    <br>
-                  </div>
-                  <div class="col-lg-6 text-left">
-                    <input type="range" name="Grams_slider" value="<%= animal_data.food_ration %>" min="50" max="1500" onchange="updateGramsLabel(this.value)">
-                    Amount of:  <span id="Grams_Value_label"><%= animal_data.food_ration %></span> Grams Per Serving
-                    <br>
-                  </div>
-              </div>
-              <div class="col-lg-12 text-center">
-                <div class="col-lg-6 text-left">
-                  <h5 class="text-center">Hora de inicio: </h5>
-                </div>
-                <div class="col-lg-6 text-left">
-                  <input type="time" name="hora" value="05:00:00" step="1">
-              </div>
-            </div>
-            <div class="col-lg-12 text-center">
-              <div class="col-lg-6 text-left">
-                <h5 class="text-center">Hora de Finalizar: </h5>
-              </div>
-              <div class="col-lg-6 text-left">
-                <input type="time" name="horaFin" value="20:00:00" step="1">
-            </div>
+          <div class="col-lg-6 text-left">
+            <input type="range" name="times_a_day_slider" value="<%= animal_data.times_a_day %>" min="1" max="6" onchange="updateTimesADayLabel(this.value)">
+            Cantidad:  <span id="times_a_day_value_label"><%= animal_data.times_a_day %></span> porciones por dìa.
+            <br>
           </div>
         </div>
-          <div class="col-lg-12 text-center">
-            <button onclick="saveAnimalSettings('<%=animal_name %>')" type="button" name="button">Save Settings</button>
+        <div class="col-lg-12 text-left">
+          <div class="col-lg-6 text-center">
+            <h5>Cantidad de Gramos por Porción</h5>
+            <br>
           </div>
-          <div class="col-lg-12 text-center">
-            <input type="text" name="" placeholder="0.0.0.0" onchange="updateIP(this.value)">
-            <button onclick="updateBoard()" type="button" name="button">Save on Board</button>
+          <div class="col-lg-6 text-left">
+            <input type="range" name="food_ration_slider" value="<%= animal_data.food_ration %>" min="50" max="1500" onchange="updateFoodRationLabel(this.value)">
+            Cantidad de:  <span id="food_ration_value_label"><%= animal_data.food_ration %></span> gramos por porción.
+            <br>
           </div>
+        </div>
+        <div class="col-lg-12 text-center">
+          <div class="col-lg-6 text-left">
+            <h5 class="text-center">Hora de inicio: </h5>
+          </div>
+          <div class="col-lg-6 text-left">
+            <input type="time" name="start_time" value="05:00" step="60" onchange="updateStartHour(this.value)">
+          </div>
+        </div>
+        <div class="col-lg-12 text-center">
+          <div class="col-lg-6 text-left">
+            <h5 class="text-center">Hora de finalización: </h5>
+          </div>
+          <div class="col-lg-6 text-left">
+            <input type="time" name="end_time" value="20:00" step="60" onchange="updateEndHour(this.value)">
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12 text-center">
+        <button onclick="saveAnimalSettings('<%=animal_name %>')" type="button" name="button">Guardar Ajustes</button>
+      </div>
+      <div class="col-lg-12 text-center">
+        <input type="text" name="" placeholder="0.0.0.0" onchange="updateIP(this.value)">
+        <button onclick="updateBoard()" type="button" name="button">Guardar en Colmakers</button>
       </div>
     </div>
   </div>
+</div>
 </section>
 <script src="/js/animal.js"></script>
 <%- include('partials/footer')%>
