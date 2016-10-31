@@ -35,11 +35,21 @@
       <li class="page-scroll">
         <a href="/selectanimal">SELECIONA UN ANIMAL</a>
       </li>
+      <% if(req.user) { %>
       <li class="page-scroll">
-        <a href="/registrarse">REGISTRARSE</a>
+        <a href="/myanimals">MIS ANIMALES</a>
       </li>
+      <% } %>
+      <li class="page-scroll">
+        <% if(req.user) { %>
+        <a href="/logout">SALIR</a>
+        <% }  else { %>
+        <a href="/login">INGRESAR</a>
+        <% } %>
+      </li>
+
       <!-- <li class="page-scroll">
-      <a href="/profile">Welcome <%= user %> </a>
+
       </li> -->
     </ul>
       </div>

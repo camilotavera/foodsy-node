@@ -5,6 +5,8 @@
       <div class="col-lg-12 text-left">
         <br><br><br>
         <h1><%=animal_name %></h1>
+        <label for="name">Nombre:</label>
+        <input type="text" name="name" value="" id="name" onchange="updateName(this.value)">
         <h4>Recomendación para <%=animal_name%></h4>
         <br>
         <h4 class="col-lg-6 text-left">Según: </h4>

@@ -10,7 +10,11 @@ var endMinutes = 0;
 var resultWeigthAge = 18;
 var start_hour = "5:00";
 var end_hour = "20:00";
+var name= '';
 
+function updateName(nombre) {
+  name = nombre;
+}
 function updateAgeLabel(age) {
   console.log(age);
   document.getElementById("age_value_label").innerHTML = age;
@@ -64,12 +68,31 @@ function httpGet(theUrl)
 }
 
 function saveAnimalSettings(animalName){
-  var animal_name = animalName;
-  var food_ration = food_ration_on;
-  var times_a_day = times_a_day_on;
-  var request = '/animal/save/'+animal_name+'/'+times_a_day+'/'+food_ration+'/'+start_hour+'/'+end_hour;
-  alert("Guardar ajustes para " + animal_name + ": Porciones por día: " +  times_a_day + ", Peso comida: " + food_ration + " (gramos).");
-  httpGet(request);
+  var data = {
+    name: name,
+    animal_name: animalName,
+    food_ration: food_ration_on,
+    times_a_day: times_a_day_on,
+    start_hour: start_hour,
+    end_hour: end_hour,
+    weight: weigth_on,
+    age: age_on
+  }
+  console.log(data);
+  var formData = new FormData(document.forms.user);
+  var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
+  xmlhttp.onreadystatechange = function() {
+      if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+        if (xmlhttp.responseText == 'OK') {
+          window.location = "/myanimals"
+        }
+      }
+  }
+  xmlhttp.open("POST", '/saveanimal');
+  xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  xmlhttp.send(JSON.stringify(data));
+  // alert("Guardar ajustes para " + animal_name + ": Porciones por día: " +  times_a_day + ", Peso comida: " + food_ration + " (gramos).");
+  // httpGet(request);
 }
 
 function updateIP(ip) {

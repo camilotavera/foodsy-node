@@ -3,13 +3,54 @@ var r= require('rethinkdb');
 var app = express();
 var user = "";
 var conn = null;
+var bodyParser = require('body-parser');
+var passport = require('passport');
+var Strategy = require('passport-local').Strategy;
 
+
+passport.use(new Strategy(
+  function(username, password, cb) {
+    r.db ('foodsy').table('users').filter({email:username}).run(conn, function(err,cursor){
+      cursor.toArray(function (err, users) {
+        user = users[0];
+        if (err) { return cb(err); }
+        if (!user) { return cb(null, false); }
+        if (user.password != password) { return cb(null, false); }
+        return cb(null, user);
+      });
+    });
+  }));
+
+
+  passport.serializeUser(function(user, cb) {
+    cb(null, user.id);
+  });
+
+  passport.deserializeUser(function(id, cb) {
+    r.db ('foodsy').table('users').get(id).run(conn, function(err,user){
+      if (err) { return cb(err); }
+      cb(null, user);
+    });
+  });
+
+app.use(require('cookie-parser')());
+app.use(require('body-parser').urlencoded({ extended: true }));
+app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
 app.set('view engine','ejs');
 app.set("views","views");
 app.use(express.static('public'));
-var bodyParser = require('body-parser');
+
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(function (req, res, next) {
+  res.locals.req = req;
+  next();
+})
+
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 var rethinkDB_config={
   host:'localhost',
@@ -25,6 +66,8 @@ r.connect(rethinkDB_config, function(err, connection){
         r.db ('foodsy').table('animals').indexCreate('animal_name').run(connection, function(err,res){
         });
         r.db ('foodsy').tableCreate('users').run(connection, function(err,res){
+        });
+        r.db ('foodsy').tableCreate('user_animals').run(connection, function(err,res){
         });
         var data_animals=[
         {
@@ -65,24 +108,27 @@ r.connect(rethinkDB_config, function(err, connection){
 });
 
 app.get('/',function (req,res){
-  console.log("alguien entro a la raiz del sitio");
+  console.log(req.user);
   res.render('home',{user:user});
 });
 
-app.get('/profile',function (req,res){
-  res.render('profile',{user:user});
-});
 
-app.get('/selectanimal',function(req,res){
-  res.render('selectanimal',{user:user});
-});
+app.get('/selectanimal',
+  require('connect-ensure-login').ensureLoggedIn(),
+  function(req, res){
+    res.render('selectanimal', { user: req.user });
+  });
+
+// app.get('/selectanimal',function(req,res){
+//   res.render('selectanimal',{user:user});
+// });
 
 app.get('/registrarse',function(req,res){
   res.render('registro',{user:user});
 });
 
 
-app.get('/animal/:animal_name',function(req,res){
+app.get('/animal/:animal_name', require('connect-ensure-login').ensureLoggedIn(), function(req,res){
   animal_name= req.params.animal_name;
   r.db('foodsy').table('animals').filter(r.row('animal_name').eq(animal_name)).run(conn,function(err,cursor){
     cursor.toArray(function(err,result){
@@ -114,9 +160,52 @@ app.get('/animal/save/:animal_name/:times_a_day/:food_ration/:start_hour/:end_ho
   });
 });
 
-app.post('/registro', function (req,res) {
-  console.log(req.body);
+app.post('/saveanimal', require('connect-ensure-login').ensureLoggedIn(), function (req,res) {
+  req.body.user_id = req.user.id;
+  r.db('foodsy').table('user_animals').insert(req.body).run(conn, function(err,result){
+    res.send(200);
+  })
+})
+
+app.post('/register', function (req,res) {
+  r.db('foodsy').table('users').insert(req.body).run(conn, function(err,result){
+    redirect();
+  });
+  function redirect() {
+    res.send(200);
+  }
 });
+
+app.get('/login',
+  function(req, res){
+    res.render('login');
+  });
+
+app.post('/login',
+  passport.authenticate('local', { failureRedirect: '/login' }),
+  function(req, res) {
+    console.log(req.body);
+    res.redirect('/');
+  });
+
+app.get('/logout',
+  function(req, res){
+    req.logout();
+    res.redirect('/');
+  });
+
+app.get('/myanimals',
+  require('connect-ensure-login').ensureLoggedIn(),
+  function(req, res){
+    r.db ('foodsy').table('user_animals').filter({user_id:req.user.id}).run(conn, function(err,cursor){
+      cursor.toArray(function (err, animals) {
+        res.render('myanimals', { user: req.user, animals: animals });
+      })
+    })
+
+  });
+
+
 const port = process.env['PORT'] != null ? process.env['PORT'] : 80
 
 app.listen(port);

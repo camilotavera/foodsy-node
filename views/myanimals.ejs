@@ -1,0 +1,48 @@
+<%- include('partials/header')%>
+
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h1>MIS ANIMALES</h1>
+        <div class="col-lg-12">
+          <div class="container">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Nombre animal</th>
+                  <th>Tipo de animal</th>
+                  <th>Peso</th>
+                  <th>Edad</th>
+                  <th>Cantidad por racion</th>
+                  <th>Raciones al dia</th>
+                  <th>Hora inicial</th>
+                  <th>Hora final</th>
+                  <th>IP Tarjeta</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for (var i = 0; i < animals.length; i++) { %>
+                <tr>
+                  <td><%= animals[i].name %></td>
+                  <td><%= animals[i].animal_name %></td>
+                  <td><%= animals[i].weight %></td>
+                  <td><%= animals[i].age %></td>
+                  <td><%= animals[i].food_ration %></td>
+                  <td><%= animals[i].times_a_day %></td>
+                  <td><%= animals[i].start_hour %></td>
+                  <td><%= animals[i].end_hour %></td>
+                  <td><input id="ipBoard<%= i %>" type="text" placeholder="192.168.4.1" name="name" value=""></td>
+                  <td><input type="button" name="name" value="Enviar" onclick="updateBoard(<%= animals[i].food_ration %>,<%= animals[i].times_a_day %>, <%= i %>, '<%= animals[i].start_hour %>', '<%= animals[i].end_hour %>')"></td>
+                </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="/js/myanimals.js"></script>
+    <%- include('partials/footer')%>
