@@ -47,7 +47,7 @@
             <br>
           </div>
           <div class="col-lg-6 text-left">
-            <input type="range" name="times_a_day_slider" value="<%= animal_data.times_a_day %>" min="1" max="6" onchange="updateTimesADayLabel(this.value)">
+            <input type="range" name="times_a_day_slider" value="<%= animal_data.times_a_day %>" min="1" max="1440" onchange="updateTimesADayLabel(this.value)">
             Cantidad:  <span id="times_a_day_value_label"><%= animal_data.times_a_day %></span> porciones por dìa.
             <br>
           </div>
