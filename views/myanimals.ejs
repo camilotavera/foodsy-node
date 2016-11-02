@@ -6,7 +6,7 @@
       <div class="col-lg-12 text-center">
         <h1>MIS ANIMALES</h1>
         <div class="col-lg-12">
-          <div class="container">
+          <div class="container tabla-animales">
             <table class="table table-striped">
               <thead>
                 <tr>
@@ -20,11 +20,12 @@
                   <th>Hora final</th>
                   <th>IP Tarjeta</th>
                   <th></th>
+                  <th></th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="myAnimals">
                 <% for (var i = 0; i < animals.length; i++) { %>
-                <tr>
+                <tr id="animal<%= i %>">
                   <td><%= animals[i].name %></td>
                   <td><%= animals[i].animal_name %></td>
                   <td><%= animals[i].weight %></td>
@@ -35,6 +36,8 @@
                   <td><%= animals[i].end_hour %></td>
                   <td><input id="ipBoard<%= i %>" type="text" placeholder="192.168.4.1" name="name" value=""></td>
                   <td><input type="button" name="name" value="Enviar" onclick="updateBoard(<%= animals[i].food_ration %>,<%= animals[i].times_a_day %>, <%= i %>, '<%= animals[i].start_hour %>', '<%= animals[i].end_hour %>')"></td>
+                  <td><a href="#"><i class="glyphicon glyphicon-remove" onclick="deleteAnimal('<%= animals[i].id %>', '<%= animals[i].name %>', 'animal<%= i %>')"></i></a></td>
+
                 </tr>
                 <% } %>
               </tbody>
@@ -43,6 +46,29 @@
       </div>
     </div>
   </div>
+
+  <div class="level-food">
+    <div class="indicator-food">
+
+    </div>
+  </div>
+  <div class="level-battery">
+    <div class="positive-battery">
+      <div class="battery-charge-25">
+
+      </div>
+      <div class="battery-charge-50">
+
+      </div>
+      <div class="battery-charge-75">
+
+      </div>
+      <div class="battery-charge-100">
+
+      </div>
+    </div>
+  </div>
 </section>
 <script src="/js/myanimals.js"></script>
+<script src="/js/readSensors.js"></script>
     <%- include('partials/footer')%>

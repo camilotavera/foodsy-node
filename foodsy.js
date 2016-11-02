@@ -162,10 +162,17 @@ app.get('/animal/save/:animal_name/:times_a_day/:food_ration/:start_hour/:end_ho
 
 app.post('/saveanimal', require('connect-ensure-login').ensureLoggedIn(), function (req,res) {
   req.body.user_id = req.user.id;
+  console.log(req.body);
   r.db('foodsy').table('user_animals').insert(req.body).run(conn, function(err,result){
     res.send(200);
   })
-})
+});
+
+app.post('/deleteanimal', require('connect-ensure-login').ensureLoggedIn(), function (req,res) {
+  r.db('foodsy').table('user_animals').get(req.body.id).delete().run(conn, function(err,result){
+    res.send(200);
+  });
+});
 
 app.post('/register', function (req,res) {
   r.db('foodsy').table('users').insert(req.body).run(conn, function(err,result){
@@ -178,12 +185,10 @@ app.post('/register', function (req,res) {
 
 app.get('/login',
   function(req, res){
-    res.render('login');
+    res.render('login', {login_fail: false});
   });
 
-app.post('/login',
-  passport.authenticate('local', { failureRedirect: '/login' }),
-  function(req, res) {
+app.post('/login', passport.authenticate('local', { failureRedirect: '/login', login_fail: true }), function(req, res) {
     console.log(req.body);
     res.redirect('/');
   });

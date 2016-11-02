@@ -71,8 +71,8 @@ function saveAnimalSettings(animalName){
   var data = {
     name: name,
     animal_name: animalName,
-    food_ration: food_ration_on,
-    times_a_day: times_a_day_on,
+    food_ration: document.getElementsByName('times_a_day_slider')[0].value,
+    times_a_day: document.getElementsByName('food_ration_slider')[0].value,
     start_hour: start_hour,
     end_hour: end_hour,
     weight: weigth_on,
@@ -84,7 +84,7 @@ function saveAnimalSettings(animalName){
   xmlhttp.onreadystatechange = function() {
       if (xmlhttp.readyState == XMLHttpRequest.DONE) {
         if (xmlhttp.responseText == 'OK') {
-          window.location = "/myanimals"
+          // window.location = "/myanimals"
         }
       }
   }

@@ -34,3 +34,22 @@ function httpGet(theUrl)
     xmlHttp.send( null );
     return xmlHttp.responseText;
 }
+
+function deleteAnimal(animal, name, rowAnimal) {
+    if (confirm("¿Esta usted seguro que desea eliminar a " + name + '?') == true) {
+      var data = {
+        id: animal
+      }
+      var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
+      xmlhttp.onreadystatechange = function() {
+          if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+            if (xmlhttp.responseText == 'OK') {
+              document.getElementById(rowAnimal).remove();
+            }
+          }
+      }
+      xmlhttp.open("POST", '/deleteanimal');
+      xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+      xmlhttp.send(JSON.stringify(data));
+    }
+}
