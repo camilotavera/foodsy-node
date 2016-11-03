@@ -84,7 +84,7 @@ function saveAnimalSettings(animalName){
   xmlhttp.onreadystatechange = function() {
       if (xmlhttp.readyState == XMLHttpRequest.DONE) {
         if (xmlhttp.responseText == 'OK') {
-          // window.location = "/myanimals"
+          window.location = "/myanimals"
         }
       }
   }
@@ -112,7 +112,7 @@ function updateBoard() {
   var request = 'http://'+ board_IP + '/pulse/d3?on=' + parseInt(time_on) + '&off=' + time_off;
   var timeToSet = 'http://'+ board_IP + '/time/config/work?hstart='+ startHour + '&mstart=' + startMinutes + '&hend=' + endHour + '&mend=' + endMinutes;
 
-  alert(timeToSet + request);
+  alert('¿desea enviar esta configuracion a su tarjeta?');
   httpGet(timeToSet);
   httpGet(request);
 }

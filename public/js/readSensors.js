@@ -1,4 +1,4 @@
-var boardIP = 'http://192.168.0.2/';
+var boardIP = 'http://192.168.4.1/';
 window.onload = function() {
   readSensorFood();
 };
@@ -53,7 +53,31 @@ function readSensorBattery() {
       if (xmlhttp.readyState == XMLHttpRequest.DONE) {
         var response = JSON.parse(xmlhttp.responseText);
         console.log(response);
-        levelBattery = parseInt(response.a1 / 10);
+        levelBattery = parseInt(response.a1);
+        if (levelBattery<=571) {
+          document.getElementsByClassName("battery-charge-100")[0].style.display="none";
+          document.getElementsByClassName("battery-charge-75")[0].style.display="none";
+          document.getElementsByClassName("battery-charge-50")[0].style.display="none";
+          document.getElementsByClassName("battery-charge-25")[0].style.display="";
+        }
+        else if (levelBattery>571 && levelBattery<=583) {
+          document.getElementsByClassName("battery-charge-100")[0].style.display="none";
+          document.getElementsByClassName("battery-charge-75")[0].style.display="none";
+          document.getElementsByClassName("battery-charge-50")[0].style.display="";
+          document.getElementsByClassName("battery-charge-25")[0].style.display="";
+        }
+        else if (levelBattery>583 && levelBattery<=596) {
+          document.getElementsByClassName("battery-charge-100")[0].style.display="none";
+          document.getElementsByClassName("battery-charge-75")[0].style.display="";
+          document.getElementsByClassName("battery-charge-50")[0].style.display="";
+          document.getElementsByClassName("battery-charge-25")[0].style.display="";
+        }
+        else if (levelBattery>586) {
+          document.getElementsByClassName("battery-charge-100")[0].style.display="";
+          document.getElementsByClassName("battery-charge-75")[0].style.display="";
+          document.getElementsByClassName("battery-charge-50")[0].style.display="";
+          document.getElementsByClassName("battery-charge-25")[0].style.display="";
+        }
         // document.getElementsByClassName('indicator-food')[0].style.height = levelFood + 'px'
         changeSensor(false);
       }

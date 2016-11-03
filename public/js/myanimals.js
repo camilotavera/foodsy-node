@@ -53,3 +53,9 @@ function deleteAnimal(animal, name, rowAnimal) {
       xmlhttp.send(JSON.stringify(data));
     }
 }
+
+function detener() {
+console.log("boton presionado");
+  var request = 'http://192.168.4.1/pulse/d3?on=0&off=0';
+    httpGet(request);
+  }
