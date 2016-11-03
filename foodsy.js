@@ -188,7 +188,7 @@ app.get('/login',
     res.render('login', {login_fail: false});
   });
 
-app.post('/login', passport.authenticate('local', { failureRedirect: '/login', login_fail: true }), function(req, res) {
+app.post('/login', passport.authenticate('local', { failureRedirect: '/login' }), function(req, res) {
     console.log(req.body);
     res.redirect('/');
   });

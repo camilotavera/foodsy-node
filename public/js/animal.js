@@ -109,7 +109,7 @@ function updateBoard() {
   var times_a_day = parseInt(times_a_day_on);
   var seconds_in_day = 43200;
   var time_off = seconds_in_day / times_a_day;
-  var request = 'http://'+ board_IP + '/pulse/d1?on=' + parseInt(time_on) + '&off=' + time_off;
+  var request = 'http://'+ board_IP + '/pulse/d3?on=' + parseInt(time_on) + '&off=' + time_off;
   var timeToSet = 'http://'+ board_IP + '/time/config/work?hstart='+ startHour + '&mstart=' + startMinutes + '&hend=' + endHour + '&mend=' + endMinutes;
 
   alert(timeToSet + request);
